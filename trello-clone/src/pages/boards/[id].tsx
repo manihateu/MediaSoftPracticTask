@@ -2,24 +2,22 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch, Provider } from 'react-redux';
 import { RootState } from '../../store/store';
-import { addBoard, removeBoard } from '../../store/boardsSlice';
+import { Board, addBoard, removeBoard } from '../../store/boardsSlice';
 import store from '../../store/store';
 
 const BoardPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const boards = useSelector((state: RootState) => state.boards.boards);
-  const board = boards.find((board) => board.id == id);
-  console.log(boards)
+  const board = useSelector((state: RootState) => state.boards.boards.find((board:Board) => board.id == id)) || [];
 
   const dispatch = useDispatch();
 
   const handleAddBoard = () => {
     const newBoard = {
-      id: Math.random().toString(),
+      id: id,
       name: `Доска ${id}-${Math.random().toString().slice(2, 6)}`,
-      description: '',
+      description: '123',
     };
     dispatch(addBoard(newBoard));
   };
