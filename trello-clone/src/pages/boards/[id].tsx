@@ -10,7 +10,7 @@ const BoardPage = () => {
   const { id } = router.query;
   const [name, setName] = useState('')
   const [desc, setDesc] = useState('')
-  const board = useSelector((state: RootState) => state.boards.boards.find((board:Board) => board.id == id)) || [];
+  const board = useSelector((state: RootState) => state.boards.boards.find((board:Board) => board.id == id)) || null;
 
   const dispatch = useDispatch();
 
@@ -28,7 +28,28 @@ const BoardPage = () => {
   };
 
   if (!board) {
-    return <div>Доска не найдена</div>;
+    return (
+      <>
+        <div>Доска не найдена</div>
+        <div className='mt-6'>
+        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Введи название доски</label>
+        <input type="text" id="name" onChange={(e) => {setName(e.target.value)}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
+      </div>
+      <div className='mt-6'>
+        <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900">Введи описание доски</label>
+        <input type="text" id="desc" onChange={(e) => {setDesc(e.target.value)}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required/>
+      </div>
+      <button className='mt-2' onClick={() => {handleAddBoard(name, desc)}}>
+        Добавить доску
+      </button>
+      <button
+        className="mt-2 text-sm text-red-500"
+        onClick={() => handleRemoveBoard(board.id)}
+      >
+        Удалить доску
+      </button>
+      </>
+    );
   }
 
   return (
