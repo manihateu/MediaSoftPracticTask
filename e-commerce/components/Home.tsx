@@ -5,9 +5,11 @@ import { fetchProducts } from '../actions/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import Card from './Card';
-import styles from "@/styles/Home.module.scss"
+import styles from "../styles/Home.module.scss"
 
-type Props = {}
+type Props = {
+
+}
 
 interface Product {
   id: string;
@@ -17,7 +19,7 @@ interface Product {
   image: string;
 }
 
-const Home: React.FC = (props: Props) => {
+const Home = (props: Props) => {
   const dispatch: ThunkDispatch<RootState, null, AnyAction> = useDispatch();
   const products = useSelector((state: RootState) => state.products.products);
   const loading = useSelector((state: RootState) => state.products.loading);
@@ -40,7 +42,7 @@ const Home: React.FC = (props: Props) => {
       <h1>Product List</h1>
       <div className={styles.products__container}>
         {products.map((product: Product) => (
-          <Card title={product.title} description={product.description} price={product.price} key={product.id} imageUrl={product.image}/>
+          <Card title={product.title} description={product.description} cardId={product.id.toString()} price={product.price} key={product.id} imageUrl={product.image}/>
         ))}
       </div>
     </div>

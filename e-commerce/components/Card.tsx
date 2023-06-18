@@ -7,18 +7,19 @@ import Link from 'next/link';
 
 
 interface CardProps {
+  cardId: string
   title: string;
   description: string;
   price: number;
   imageUrl: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, price, imageUrl }) => {
+const Card: React.FC<CardProps> = ({ cardId, title, description, price, imageUrl }) => {
     const dispatch = useDispatch();
     const cartProducts = useSelector((state: RootState) => state.cart.products);
     const handleAddToCart = () => {
       const product = {
-        id: title,
+        id: cardId,
         title,
         description,
         price,
@@ -31,12 +32,14 @@ const Card: React.FC<CardProps> = ({ title, description, price, imageUrl }) => {
     
 
     return (
-        <Link href={`/product/${title}`}>
+        
             <div className={styles.card}>
                 <img className={styles.card__image} src={imageUrl} alt={title} />
                 <div className={styles.card__content}>
-                <h2 className={styles.card__title}>{title}</h2>
-                <p className={styles.card__description}>{description}</p>
+                <Link className={styles.link} href={`/product/${cardId}`}>
+                  <h2 className={styles.card__title}>{title}</h2>
+                  <p className={styles.card__description}>{description}</p>
+                </Link>
                 <div className={styles.card__price}>
                     <div>${price}</div>
                     <button className={styles.card__button} onClick={handleAddToCart}>
@@ -47,7 +50,7 @@ const Card: React.FC<CardProps> = ({ title, description, price, imageUrl }) => {
                 </div>
                 </div>
             </div>
-        </Link>
+        
     );
   };
   
