@@ -2,10 +2,17 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styles from '@/styles/ProductPage.module.scss'
+import { Product } from '@/reducers/productReducer';
 export default function ProductPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState<Product>({  // Исправлено здесь
+    id: '',
+    title: '',
+    description: '',
+    price: 0,
+    image: '',
+  });
 
   useEffect(() => {
     const fetchData = async () => {
