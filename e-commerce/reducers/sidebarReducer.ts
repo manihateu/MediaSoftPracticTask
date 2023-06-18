@@ -1,5 +1,4 @@
-
-interface SidebarState {
+  interface SidebarState {
     isOpen: boolean;
   }
   

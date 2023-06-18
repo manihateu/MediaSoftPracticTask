@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styles from '@/styles/ProductPage.module.scss'
 import { Product } from '@/reducers/productReducer';
+
 export default function ProductPage() {
   const router = useRouter();
   const { id } = router.query;
