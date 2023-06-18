@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { CartProduct } from "../reducers/cartReducer";
+import { Product } from "@/reducers/productReducer";
 
 
 
@@ -10,18 +11,9 @@ export const toggleSidebar = () => {
     };
   };
 
-  export const fetchProducts = () => {
+  export const fetchProducts = (data: Product[]) => {
     return async (dispatch: Dispatch) => {
-      try {
-        // Выполните запрос к серверу для получения данных о товарах
-        const response = await axios.get('https://fakestoreapi.com/products');
-        const data = response.data;
-  
-        // Диспатч экшена для обновления состояния товаров
-        dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: data });
-      } catch (error) {
-        dispatch({ type: 'FETCH_PRODUCTS_FAILURE', payload: error });
-      }
+      dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: data });
     };
   };
   
